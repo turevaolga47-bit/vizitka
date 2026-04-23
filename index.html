@@ -3,133 +3,197 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#1a0535">
+  <meta name="theme-color" content="#0d0120">
   <title>Ольга Турьева — Кризисный психолог</title>
-  <meta name="description" content="Ph.Dr. Ольга Турьева — кризисный психолог, соматолог, физиотерапевт. 34 года практики. Онлайн и ретриты.">
+  <meta name="description" content="Ph.Dr. Ольга Турьева — кризисный психолог, соматолог, физиотерапевт. 34 года практики.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --purple: #7c3aed;
-      --purple-light: #a855f7;
       --gold: #f59e0b;
       --gold-light: #fcd34d;
       --pink: #ec4899;
+      --purple: #8b5cf6;
+      --purple-deep: #5b21b6;
       --teal: #14b8a6;
-      --bg-from: #0f0520;
-      --bg-via: #1a0535;
-      --bg-to: #0d1b3e;
-      --glass: rgba(255,255,255,0.07);
-      --glass-border: rgba(255,255,255,0.13);
       --text: #f0ebff;
-      --text-dim: rgba(200,185,230,0.65);
-      --radius: 22px;
+      --text-dim: rgba(200,185,235,0.6);
+      --glass: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.11);
+      --r: 22px;
     }
 
-    html { height: 100%; }
+    html, body { min-height: 100%; }
 
     body {
-      min-height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
-      background: linear-gradient(160deg, var(--bg-from) 0%, var(--bg-via) 40%, #0d1b3e 75%, #080d20 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+      background: #0d0120;
       color: var(--text);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* === ANIMATED BG === */
-    .bg-orbs {
+    /* ══════════════════════════════════════════
+       CANVAS BACKGROUND
+    ══════════════════════════════════════════ */
+    #bg-canvas {
       position: fixed;
       inset: 0;
       z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.35;
-      animation: orbFloat 12s ease-in-out infinite;
-    }
-    .orb-1 {
-      width: 55vw; height: 55vw;
-      top: -15%; left: -10%;
-      background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
-      animation-delay: 0s;
-    }
-    .orb-2 {
-      width: 45vw; height: 45vw;
-      top: 20%; right: -15%;
-      background: radial-gradient(circle, #ec4899 0%, transparent 70%);
-      animation-delay: -4s;
-      opacity: 0.25;
-    }
-    .orb-3 {
-      width: 40vw; height: 40vw;
-      bottom: 5%; left: 10%;
-      background: radial-gradient(circle, #1d4ed8 0%, transparent 70%);
-      animation-delay: -8s;
-      opacity: 0.3;
-    }
-    @keyframes orbFloat {
-      0%, 100% { transform: translate(0,0) scale(1); }
-      33%       { transform: translate(4%, 3%) scale(1.04); }
-      66%       { transform: translate(-3%, 5%) scale(0.97); }
+      width: 100%;
+      height: 100%;
     }
 
-    /* === LAYOUT === */
+    /* ══════════════════════════════════════════
+       CSS NEBULA ORBS (layered over canvas)
+    ══════════════════════════════════════════ */
+    .nebula {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .neb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      animation: nebFloat linear infinite;
+      will-change: transform;
+    }
+    .neb-1 {
+      width: 70vw; height: 70vw;
+      top: -20%; left: -20%;
+      background: radial-gradient(circle, rgba(120,40,220,0.55) 0%, transparent 65%);
+      animation-duration: 22s;
+      animation-delay: 0s;
+    }
+    .neb-2 {
+      width: 60vw; height: 60vw;
+      top: 10%; right: -20%;
+      background: radial-gradient(circle, rgba(220,50,150,0.4) 0%, transparent 65%);
+      animation-duration: 28s;
+      animation-delay: -10s;
+    }
+    .neb-3 {
+      width: 55vw; height: 55vw;
+      bottom: -15%; left: 5%;
+      background: radial-gradient(circle, rgba(20,100,220,0.45) 0%, transparent 65%);
+      animation-duration: 34s;
+      animation-delay: -5s;
+    }
+    .neb-4 {
+      width: 40vw; height: 40vw;
+      bottom: 30%; right: -10%;
+      background: radial-gradient(circle, rgba(20,184,166,0.3) 0%, transparent 65%);
+      animation-duration: 26s;
+      animation-delay: -18s;
+    }
+    @keyframes nebFloat {
+      0%   { transform: translate(0,0) scale(1)    rotate(0deg); }
+      25%  { transform: translate(4%,3%) scale(1.06) rotate(2deg); }
+      50%  { transform: translate(2%,6%) scale(0.96) rotate(-1deg); }
+      75%  { transform: translate(-3%,2%) scale(1.04) rotate(1deg); }
+      100% { transform: translate(0,0) scale(1)    rotate(0deg); }
+    }
+
+    /* ══════════════════════════════════════════
+       PAGE LAYOUT
+    ══════════════════════════════════════════ */
     .page {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 32px 16px 48px;
-      gap: 16px;
+      padding: 32px 16px 52px;
+      gap: 14px;
     }
 
-    /* === CARD BASE === */
+    /* ══════════════════════════════════════════
+       CARD BASE
+    ══════════════════════════════════════════ */
     .card {
       width: 100%;
       max-width: 420px;
       background: var(--glass);
       border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      border-radius: var(--r);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
       overflow: hidden;
-      animation: cardIn 0.6s cubic-bezier(0.22,1,0.36,1) both;
+      animation: cardIn 0.7s cubic-bezier(0.22,1,0.36,1) both;
+      position: relative;
     }
     .card:nth-child(2) { animation-delay: 0.08s; }
-    .card:nth-child(3) { animation-delay: 0.16s; }
-    .card:nth-child(4) { animation-delay: 0.22s; }
-    .card:nth-child(5) { animation-delay: 0.28s; }
+    .card:nth-child(3) { animation-delay: 0.14s; }
+    .card:nth-child(4) { animation-delay: 0.20s; }
+    .card:nth-child(5) { animation-delay: 0.25s; }
+    .card:nth-child(6) { animation-delay: 0.30s; }
+    .card:nth-child(7) { animation-delay: 0.34s; }
 
     @keyframes cardIn {
-      from { opacity: 0; transform: translateY(28px) scale(0.97); }
+      from { opacity: 0; transform: translateY(32px) scale(0.96); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* === HERO CARD === */
-    .hero-card {
-      padding: 36px 28px 28px;
-      text-align: center;
+    /* Animated glow border on hero card */
+    .card-glow {
       position: relative;
     }
+    .card-glow::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: calc(var(--r) + 1px);
+      background: conic-gradient(
+        from var(--angle, 0deg),
+        #7c3aed, #ec4899, #f59e0b, #14b8a6, #8b5cf6, #7c3aed
+      );
+      z-index: -1;
+      opacity: 0.6;
+      animation: borderSpin 6s linear infinite;
+    }
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    @keyframes borderSpin {
+      to { --angle: 360deg; }
+    }
 
+    /* ══════════════════════════════════════════
+       HERO CARD
+    ══════════════════════════════════════════ */
+    .hero-card {
+      padding: 36px 24px 28px;
+      text-align: center;
+      background: rgba(10,3,30,0.75);
+    }
+
+    /* Avatar */
     .avatar-wrap {
       position: relative;
       display: inline-block;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
+    }
+    .avatar-ring-outer {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #f59e0b, #ec4899, #8b5cf6, #14b8a6, #f59e0b);
+      animation: spin 5s linear infinite;
+      opacity: 0.6;
+      filter: blur(4px);
     }
     .avatar-ring {
       position: absolute;
-      inset: -4px;
+      inset: -3px;
       border-radius: 50%;
-      background: conic-gradient(from 0deg, #f59e0b, #ec4899, #7c3aed, #14b8a6, #f59e0b);
-      animation: spin 6s linear infinite;
+      background: conic-gradient(from 0deg, #f59e0b 0%, #ec4899 30%, #8b5cf6 60%, #14b8a6 80%, #f59e0b 100%);
+      animation: spin 5s linear infinite;
       z-index: 0;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -137,121 +201,184 @@
     .avatar {
       position: relative;
       z-index: 1;
-      width: 100px;
-      height: 100px;
+      width: 108px;
+      height: 108px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #4a1a8a 0%, #7c3aed 50%, #c084fc 100%);
+      overflow: hidden;
+      border: 3px solid #0d0120;
+      background: linear-gradient(135deg, #3b1060 0%, #7c3aed 50%, #c084fc 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 36px;
       font-weight: 700;
       color: #fff;
-      letter-spacing: -1px;
-      overflow: hidden;
-      border: 3px solid #0f0520;
     }
     .avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 15%;
+      object-position: center top;
+      display: block;
     }
-
-    .badge-online {
+    .avatar-online {
       position: absolute;
-      bottom: 4px; right: 4px;
+      bottom: 3px; right: 3px;
       width: 20px; height: 20px;
-      background: #22c55e;
       border-radius: 50%;
-      border: 3px solid #0f0520;
+      background: #22c55e;
+      border: 3px solid #0d0120;
       z-index: 2;
-      box-shadow: 0 0 8px rgba(34,197,94,0.7);
+      animation: onlinePulse 2.5s ease-in-out infinite;
+    }
+    @keyframes onlinePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+      50%       { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
     }
 
+    /* Name */
     .name {
       font-size: clamp(22px, 6vw, 28px);
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.1;
-      background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 30%, #ec4899 65%, #a855f7 100%);
+      background: linear-gradient(100deg, #fcd34d 0%, #f59e0b 25%, #ec4899 55%, #a78bfa 85%, #fcd34d 100%);
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: nameShimmer 4s linear infinite;
       margin-bottom: 6px;
+    }
+    @keyframes nameShimmer {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
     }
 
     .degree {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 500;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       color: var(--text-dim);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
+    /* Chips */
     .chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 7px;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .chip {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 6px 14px;
+      padding: 5px 13px;
       border-radius: 100px;
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 500;
-      letter-spacing: 0.02em;
-      background: rgba(255,255,255,0.09);
-      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.13);
       color: var(--text);
     }
-    .chip-gold {
-      background: rgba(245,158,11,0.15);
-      border-color: rgba(245,158,11,0.35);
-      color: #fcd34d;
-    }
-    .chip-pink {
-      background: rgba(236,72,153,0.12);
-      border-color: rgba(236,72,153,0.3);
-      color: #f9a8d4;
-    }
-    .chip-teal {
-      background: rgba(20,184,166,0.12);
-      border-color: rgba(20,184,166,0.3);
-      color: #5eead4;
-    }
+    .chip-gold  { background: rgba(245,158,11,0.14); border-color: rgba(245,158,11,0.35); color: #fcd34d; }
+    .chip-pink  { background: rgba(236,72,153,0.12); border-color: rgba(236,72,153,0.3);  color: #f9a8d4; }
+    .chip-teal  { background: rgba(20,184,166,0.12); border-color: rgba(20,184,166,0.3);  color: #5eead4; }
 
     .bio {
-      font-size: 14.5px;
+      font-size: 14px;
       line-height: 1.65;
-      color: rgba(220,210,240,0.82);
-      text-align: center;
+      color: rgba(220,210,240,0.78);
     }
-    .bio strong {
-      color: var(--text);
-      font-weight: 600;
+    .bio strong { color: var(--text); font-weight: 600; }
+
+    /* ══════════════════════════════════════════
+       MAIN CTA
+    ══════════════════════════════════════════ */
+    .cta-card {
+      padding: 18px;
+      background: rgba(10,3,30,0.7);
+      position: relative;
+      overflow: visible;
     }
 
-    /* === SECTION LABEL === */
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      padding: 18px 20px 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+    .cta-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 17px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, #6d28d9, #8b5cf6, #ec4899);
+      background-size: 200% auto;
+      box-shadow:
+        0 0 30px rgba(139,92,246,0.5),
+        0 0 60px rgba(139,92,246,0.2),
+        0 8px 24px rgba(0,0,0,0.4);
+      transition: transform 0.18s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+      overflow: hidden;
+      animation: ctaGlow 3s ease-in-out infinite;
+    }
+    @keyframes ctaGlow {
+      0%, 100% { box-shadow: 0 0 30px rgba(139,92,246,0.5), 0 0 60px rgba(139,92,246,0.2), 0 8px 24px rgba(0,0,0,0.4); }
+      50%       { box-shadow: 0 0 45px rgba(236,72,153,0.6), 0 0 80px rgba(139,92,246,0.3), 0 8px 24px rgba(0,0,0,0.4); }
     }
 
-    /* === SOCIAL GRID === */
+    /* Shimmer sweep */
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      transform: skewX(-20deg);
+      animation: shimmerSweep 3s ease-in-out infinite;
+    }
+    @keyframes shimmerSweep {
+      0%   { left: -100%; }
+      40%, 100% { left: 160%; }
+    }
+
+    .cta-btn:active { transform: scale(0.96); }
+    @media (hover: hover) {
+      .cta-btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 0 50px rgba(139,92,246,0.7), 0 0 100px rgba(236,72,153,0.3), 0 12px 32px rgba(0,0,0,0.5);
+      }
+    }
+    .cta-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+
+    .pulse-ring {
+      position: absolute;
+      inset: -3px;
+      border-radius: 19px;
+      border: 2px solid rgba(139,92,246,0.6);
+      animation: pulseRing 2.4s ease-out infinite;
+      pointer-events: none;
+    }
+    @keyframes pulseRing {
+      0%   { opacity: 0.8; transform: scale(1); }
+      100% { opacity: 0;   transform: scale(1.1); }
+    }
+
+    /* ══════════════════════════════════════════
+       SOCIAL GRID
+    ══════════════════════════════════════════ */
     .social-card {
       padding: 20px;
+      background: rgba(10,3,30,0.7);
     }
-
     .social-title {
       font-size: 11px;
       font-weight: 600;
@@ -273,36 +400,62 @@
       align-items: center;
       gap: 7px;
       text-decoration: none;
-      padding: 14px 6px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      padding: 13px 5px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      transition:
+        transform 0.2s cubic-bezier(.34,1.56,.64,1),
+        box-shadow 0.2s ease,
+        background 0.2s ease;
       -webkit-tap-highlight-color: transparent;
       cursor: pointer;
-    }
-    .social-btn:active {
-      transform: scale(0.92);
-    }
-    @media (hover: hover) {
-      .social-btn:hover {
-        transform: translateY(-3px);
-        background: rgba(255,255,255,0.1);
-      }
+      position: relative;
+      overflow: hidden;
     }
 
-    .social-icon {
-      width: 40px;
-      height: 40px;
+    /* Shimmer on each button */
+    .social-btn::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: skewX(-15deg);
+      transition: left 0s;
+    }
+
+    /* Platform-specific glow colors */
+    .social-btn.tg:hover,     .social-btn.tg:active     { box-shadow: 0 0 18px rgba(41,182,248,0.7),  0 0 36px rgba(41,182,248,0.3);  background: rgba(41,182,248,0.1);  border-color: rgba(41,182,248,0.4); }
+    .social-btn.tgch:hover,   .social-btn.tgch:active   { box-shadow: 0 0 18px rgba(139,92,246,0.7),  0 0 36px rgba(139,92,246,0.3);  background: rgba(139,92,246,0.1);  border-color: rgba(139,92,246,0.4); }
+    .social-btn.wa:hover,     .social-btn.wa:active      { box-shadow: 0 0 18px rgba(37,211,102,0.7),  0 0 36px rgba(37,211,102,0.3);  background: rgba(37,211,102,0.1);  border-color: rgba(37,211,102,0.4); }
+    .social-btn.ig:hover,     .social-btn.ig:active      { box-shadow: 0 0 18px rgba(253,29,29,0.6),   0 0 36px rgba(240,100,50,0.3);  background: rgba(200,60,100,0.1);  border-color: rgba(253,100,50,0.4); }
+    .social-btn.vk:hover,     .social-btn.vk:active      { box-shadow: 0 0 18px rgba(0,119,255,0.7),   0 0 36px rgba(0,119,255,0.3);   background: rgba(0,119,255,0.1);   border-color: rgba(0,119,255,0.4); }
+    .social-btn.yt:hover,     .social-btn.yt:active      { box-shadow: 0 0 18px rgba(255,0,0,0.7),     0 0 36px rgba(255,0,0,0.3);     background: rgba(255,0,0,0.1);     border-color: rgba(255,50,50,0.4); }
+    .social-btn.fb:hover,     .social-btn.fb:active      { box-shadow: 0 0 18px rgba(24,119,242,0.7),  0 0 36px rgba(24,119,242,0.3);  background: rgba(24,119,242,0.1);  border-color: rgba(24,119,242,0.4); }
+    .social-btn.mx:hover,     .social-btn.mx:active      { box-shadow: 0 0 18px rgba(70,130,255,0.7),  0 0 36px rgba(70,130,255,0.3);  background: rgba(70,130,255,0.1);  border-color: rgba(70,130,255,0.4); }
+    .social-btn.web:hover,    .social-btn.web:active     { box-shadow: 0 0 18px rgba(6,182,212,0.7),   0 0 36px rgba(6,182,212,0.3);   background: rgba(6,182,212,0.1);   border-color: rgba(6,182,212,0.4); }
+    .social-btn.em:hover,     .social-btn.em:active      { box-shadow: 0 0 18px rgba(251,146,60,0.7),  0 0 36px rgba(251,146,60,0.3);  background: rgba(251,146,60,0.1);  border-color: rgba(251,146,60,0.4); }
+
+    @media (hover: hover) {
+      .social-btn:hover { transform: translateY(-4px) scale(1.06); }
+      .social-btn:hover::after { left: 160%; transition: left 0.5s ease; }
+    }
+    .social-btn:active { transform: scale(0.92); }
+
+    .s-icon {
+      width: 40px; height: 40px;
       border-radius: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
-    .social-icon svg { width: 20px; height: 20px; fill: #fff; }
+    .s-icon svg { width: 20px; height: 20px; fill: #fff; }
 
-    .social-name {
-      font-size: 10.5px;
+    .s-name {
+      font-size: 10px;
       font-weight: 500;
       color: var(--text-dim);
       text-align: center;
@@ -310,97 +463,55 @@
     }
 
     /* Icon gradients */
-    .icon-tg       { background: linear-gradient(135deg, #0088cc, #29b6f6); box-shadow: 0 4px 14px rgba(0,136,204,0.4); }
-    .icon-tg-ch    { background: linear-gradient(135deg, #5b21b6, #7c3aed); box-shadow: 0 4px 14px rgba(124,58,237,0.4); }
-    .icon-wa       { background: linear-gradient(135deg, #128c3e, #25d366); box-shadow: 0 4px 14px rgba(37,211,102,0.4); }
-    .icon-ig       { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); box-shadow: 0 4px 14px rgba(253,29,29,0.35); }
-    .icon-vk       { background: linear-gradient(135deg, #0077ff, #4c9be8); box-shadow: 0 4px 14px rgba(0,119,255,0.4); }
-    .icon-yt       { background: linear-gradient(135deg, #c4302b, #ff0000); box-shadow: 0 4px 14px rgba(255,0,0,0.35); }
-    .icon-fb       { background: linear-gradient(135deg, #1565c0, #1877f2); box-shadow: 0 4px 14px rgba(24,119,242,0.4); }
-    .icon-max      { background: linear-gradient(135deg, #0a5fff, #4d8bff); box-shadow: 0 4px 14px rgba(10,95,255,0.4); }
-    .icon-web      { background: linear-gradient(135deg, #0891b2, #06b6d4); box-shadow: 0 4px 14px rgba(6,182,212,0.35); }
-    .icon-email    { background: linear-gradient(135deg, #ea580c, #fb923c); box-shadow: 0 4px 14px rgba(234,88,12,0.4); }
+    .i-tg   { background: linear-gradient(135deg,#0088cc,#29b6f6); box-shadow: 0 3px 10px rgba(0,136,204,0.5); }
+    .i-tgch { background: linear-gradient(135deg,#5b21b6,#8b5cf6); box-shadow: 0 3px 10px rgba(91,33,182,0.5); }
+    .i-wa   { background: linear-gradient(135deg,#128c3e,#25d366); box-shadow: 0 3px 10px rgba(37,211,102,0.5); }
+    .i-ig   { background: linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); box-shadow: 0 3px 10px rgba(253,29,29,0.4); }
+    .i-vk   { background: linear-gradient(135deg,#0055a5,#0077ff); box-shadow: 0 3px 10px rgba(0,119,255,0.5); }
+    .i-yt   { background: linear-gradient(135deg,#c4302b,#ff0000); box-shadow: 0 3px 10px rgba(255,0,0,0.4); }
+    .i-fb   { background: linear-gradient(135deg,#1565c0,#1877f2); box-shadow: 0 3px 10px rgba(24,119,242,0.5); }
+    .i-mx   { background: linear-gradient(135deg,#0a3eb0,#4d8bff); box-shadow: 0 3px 10px rgba(77,139,255,0.5); }
+    .i-web  { background: linear-gradient(135deg,#0e7490,#06b6d4); box-shadow: 0 3px 10px rgba(6,182,212,0.5); }
+    .i-em   { background: linear-gradient(135deg,#c2410c,#fb923c); box-shadow: 0 3px 10px rgba(234,88,12,0.5); }
 
-    /* === INFO ROWS === */
-    .info-card {
-      padding: 0;
-    }
-    .info-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 20px;
-      text-decoration: none;
-      color: inherit;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      transition: background 0.15s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .info-row:last-child { border-bottom: none; }
-    .info-row:active { background: rgba(255,255,255,0.05); }
-    @media (hover: hover) {
-      .info-row:hover { background: rgba(255,255,255,0.04); }
-    }
-    .info-icon {
-      width: 38px; height: 38px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .info-icon svg { width: 20px; height: 20px; fill: #fff; }
-    .info-text { flex: 1; }
-    .info-label {
-      font-size: 11px;
-      color: var(--text-dim);
-      margin-bottom: 2px;
-      letter-spacing: 0.03em;
-    }
-    .info-value {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text);
-    }
-    .info-arrow {
-      color: var(--text-dim);
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-
-    /* === ABOUT BLOCK === */
+    /* ══════════════════════════════════════════
+       ABOUT CARD
+    ══════════════════════════════════════════ */
     .about-card {
       padding: 22px 20px;
+      background: rgba(10,3,30,0.7);
     }
-    .about-title {
-      font-size: 13px;
+    .section-ttl {
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--gold);
       margin-bottom: 14px;
     }
+    .ttl-gold   { color: #f59e0b; }
+    .ttl-purple { color: #a78bfa; }
+
     .about-text {
       font-size: 14.5px;
       line-height: 1.7;
-      color: rgba(215,205,235,0.82);
+      color: rgba(215,205,235,0.8);
     }
-    .about-text p + p { margin-top: 12px; }
+    .about-text p + p { margin-top: 11px; }
 
     .stats-row {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       margin-top: 18px;
     }
-    .stat-item {
+    .stat {
       flex: 1;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
       border-radius: 14px;
-      padding: 14px 10px;
+      padding: 14px 8px;
       text-align: center;
-      border: 1px solid rgba(255,255,255,0.1);
     }
-    .stat-num {
+    .stat-n {
       display: block;
       font-size: 26px;
       font-weight: 700;
@@ -410,61 +521,104 @@
       background-clip: text;
       line-height: 1.1;
     }
-    .stat-label {
-      font-size: 11px;
+    .stat-l {
+      font-size: 10.5px;
       color: var(--text-dim);
       margin-top: 4px;
       line-height: 1.3;
     }
 
-    /* === SERVICES === */
+    /* ══════════════════════════════════════════
+       SERVICES CARD
+    ══════════════════════════════════════════ */
     .services-card {
       padding: 20px;
+      background: rgba(10,3,30,0.7);
     }
-    .services-title {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--purple-light);
-      margin-bottom: 14px;
-    }
-    .service-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .service-list { display: flex; flex-direction: column; gap: 9px; }
     .service-item {
       display: flex;
       align-items: flex-start;
       gap: 12px;
       padding: 13px 14px;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.04);
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, border-color 0.2s, transform 0.2s cubic-bezier(.34,1.56,.64,1);
     }
-    .service-dot {
+    .service-item:active { transform: scale(0.98); }
+    @media (hover: hover) {
+      .service-item:hover {
+        background: rgba(255,255,255,0.07);
+        border-color: rgba(255,255,255,0.15);
+        transform: translateX(4px);
+      }
+    }
+    .s-dot {
       width: 8px; height: 8px;
       border-radius: 50%;
       margin-top: 5px;
       flex-shrink: 0;
+      animation: dotPulse 3s ease-in-out infinite;
     }
-    .service-text {
-      font-size: 14px;
-      line-height: 1.5;
-      color: var(--text);
+    @keyframes dotPulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.6; transform: scale(0.8); }
     }
-    .service-sub {
-      font-size: 12px;
-      color: var(--text-dim);
-      margin-top: 2px;
-    }
+    .s-text { font-size: 14px; line-height: 1.5; color: var(--text); }
+    .s-sub  { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
 
-    /* === RETRIT CARD === */
+    /* ══════════════════════════════════════════
+       CONTACTS CARD
+    ══════════════════════════════════════════ */
+    .contacts-card {
+      padding: 0;
+      background: rgba(10,3,30,0.7);
+      overflow: hidden;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 18px;
+      text-decoration: none;
+      color: inherit;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+    }
+    .contact-row:last-child { border-bottom: none; }
+    .contact-row:active { background: rgba(255,255,255,0.06); }
+    @media (hover: hover) {
+      .contact-row:hover { background: rgba(255,255,255,0.04); }
+    }
+    .c-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease;
+    }
+    .contact-row:hover .c-icon,
+    .contact-row:active .c-icon {
+      transform: scale(1.1);
+    }
+    .c-icon svg { width: 19px; height: 19px; fill: #fff; }
+    .c-text { flex: 1; }
+    .c-label { font-size: 11px; color: var(--text-dim); margin-bottom: 2px; letter-spacing: 0.03em; }
+    .c-val   { font-size: 14.5px; font-weight: 500; color: var(--text); }
+    .c-arr   { color: rgba(200,185,235,0.3); font-size: 18px; flex-shrink: 0; }
+
+    /* ══════════════════════════════════════════
+       RETRIT PROMO
+    ══════════════════════════════════════════ */
     .retrit-card {
       padding: 22px 20px;
-      background: linear-gradient(135deg, rgba(12,5,30,0.9) 0%, rgba(30,10,60,0.85) 100%);
-      border-color: rgba(245,158,11,0.25);
+      background: linear-gradient(135deg, rgba(10,4,28,0.95) 0%, rgba(25,8,55,0.9) 100%);
+      border-color: rgba(245,158,11,0.2);
       position: relative;
       overflow: hidden;
     }
@@ -473,7 +627,20 @@
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #f59e0b, #ec4899, transparent);
+      background: linear-gradient(90deg, transparent 0%, #f59e0b 30%, #ec4899 60%, transparent 100%);
+      background-size: 200% auto;
+      animation: topLineFlow 3s linear infinite;
+    }
+    @keyframes topLineFlow {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+    .retrit-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(245,158,11,0.08) 0%, transparent 70%);
+      pointer-events: none;
     }
     .retrit-label {
       font-size: 11px;
@@ -486,24 +653,24 @@
     .retrit-title {
       font-size: 20px;
       font-weight: 700;
-      letter-spacing: -0.01em;
       color: #fff;
       margin-bottom: 6px;
+      letter-spacing: -0.01em;
     }
     .retrit-sub {
       font-size: 13.5px;
-      color: rgba(215,205,235,0.7);
+      color: rgba(215,205,235,0.65);
       margin-bottom: 16px;
       line-height: 1.5;
     }
     .retrit-facts {
       display: flex;
-      gap: 8px;
+      gap: 7px;
       flex-wrap: wrap;
       margin-bottom: 18px;
     }
     .retrit-fact {
-      padding: 5px 12px;
+      padding: 5px 11px;
       border-radius: 100px;
       font-size: 12px;
       font-weight: 500;
@@ -521,120 +688,95 @@
       border-radius: 14px;
       font-size: 15px;
       font-weight: 600;
-      letter-spacing: 0.01em;
       text-decoration: none;
-      color: #0f0520;
-      background: linear-gradient(135deg, #fcd34d, #f59e0b);
-      box-shadow: 0 6px 24px rgba(245,158,11,0.4);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .retrit-btn:active { transform: scale(0.97); box-shadow: 0 3px 12px rgba(245,158,11,0.3); }
-    @media (hover: hover) {
-      .retrit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(245,158,11,0.5); }
-    }
-    .retrit-btn svg { width: 18px; height: 18px; fill: currentColor; }
-
-    /* === MAIN CTA === */
-    .cta-card {
-      padding: 20px;
-    }
-    .cta-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      padding: 17px;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      text-decoration: none;
-      color: #fff;
-      background: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
-      box-shadow: 0 8px 28px rgba(124,58,237,0.5);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      color: #0d0120;
+      background: linear-gradient(135deg, #fcd34d, #f59e0b, #d97706);
+      background-size: 200% auto;
+      box-shadow: 0 0 24px rgba(245,158,11,0.5), 0 0 48px rgba(245,158,11,0.15);
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease;
       -webkit-tap-highlight-color: transparent;
       position: relative;
       overflow: hidden;
+      animation: goldGlow 3s ease-in-out infinite;
     }
-    .cta-btn::before {
+    @keyframes goldGlow {
+      0%,100% { box-shadow: 0 0 24px rgba(245,158,11,0.5), 0 0 48px rgba(245,158,11,0.15); }
+      50%      { box-shadow: 0 0 36px rgba(245,158,11,0.7), 0 0 70px rgba(245,158,11,0.25); }
+    }
+    .retrit-btn::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.2s;
+      top: 0; left: -100%;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transform: skewX(-20deg);
+      animation: shimmerSweep 3s ease-in-out 1.5s infinite;
     }
-    .cta-btn:active { transform: scale(0.97); box-shadow: 0 4px 14px rgba(124,58,237,0.4); }
+    .retrit-btn:active { transform: scale(0.97); }
     @media (hover: hover) {
-      .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(124,58,237,0.6); }
-      .cta-btn:hover::before { opacity: 1; }
+      .retrit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 40px rgba(245,158,11,0.7), 0 0 80px rgba(245,158,11,0.3);
+      }
     }
-    .cta-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+    .retrit-btn svg { width: 18px; height: 18px; fill: currentColor; }
 
-    .pulse {
-      position: absolute;
-      inset: -4px;
-      border-radius: 20px;
-      border: 2px solid rgba(168,85,247,0.5);
-      animation: pulse 2.5s ease-out infinite;
-      pointer-events: none;
-    }
-    @keyframes pulse {
-      0%   { opacity: 0.7; transform: scale(1); }
-      100% { opacity: 0;   transform: scale(1.08); }
-    }
-
-    /* === FOOTER === */
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
     .footer {
       font-size: 11.5px;
-      color: rgba(160,145,190,0.45);
+      color: rgba(160,145,190,0.4);
       text-align: center;
-      padding: 8px 0 4px;
+      padding: 6px 0 4px;
       letter-spacing: 0.04em;
     }
-    .footer a {
-      color: rgba(168,85,247,0.5);
-      text-decoration: none;
-    }
+    .footer a { color: rgba(168,85,247,0.45); text-decoration: none; }
 
-    /* === RESPONSIVE === */
-    @media (max-width: 380px) {
-      .page { padding: 20px 12px 40px; gap: 12px; }
-      .hero-card { padding: 28px 20px 22px; }
-      .avatar { width: 86px; height: 86px; font-size: 30px; }
-      .social-grid { gap: 6px; }
-      .social-icon { width: 34px; height: 34px; border-radius: 9px; }
-      .social-icon svg { width: 17px; height: 17px; }
-      .social-btn { padding: 10px 3px; }
-      .social-name { font-size: 9.5px; }
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width: 375px) {
+      .page { padding: 20px 12px 44px; gap: 12px; }
+      .hero-card { padding: 28px 18px 22px; }
+      .avatar { width: 92px; height: 92px; }
+      .social-grid { gap: 7px; }
+      .s-icon { width: 34px; height: 34px; border-radius: 9px; }
+      .s-icon svg { width: 17px; height: 17px; }
+      .social-btn { padding: 11px 3px; border-radius: 13px; }
+      .s-name { font-size: 9px; }
     }
 
     @media (min-width: 460px) {
-      .page { padding: 40px 20px 60px; }
+      .page { padding: 42px 20px 60px; }
     }
   </style>
 </head>
 <body>
 
-<div class="bg-orbs">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
+<!-- CANVAS BACKGROUND -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- CSS NEBULA LAYERS -->
+<div class="nebula">
+  <div class="neb neb-1"></div>
+  <div class="neb neb-2"></div>
+  <div class="neb neb-3"></div>
+  <div class="neb neb-4"></div>
 </div>
 
 <div class="page">
 
-  <!-- HERO -->
-  <div class="card hero-card">
+  <!-- ── HERO ── -->
+  <div class="card card-glow hero-card">
     <div class="avatar-wrap">
+      <div class="avatar-ring-outer"></div>
       <div class="avatar-ring"></div>
       <div class="avatar">
-        <img src="photo.jpg" alt="Ольга Турьева" onerror="this.style.display='none';this.parentNode.textContent='ОТ'">
+        <img src="photo.jpg" alt="Ольга Турьева" onerror="this.style.display='none'">
       </div>
-      <div class="badge-online"></div>
+      <div class="avatar-online"></div>
     </div>
 
     <h1 class="name">Ольга Турьева</h1>
@@ -654,226 +796,190 @@
     </p>
   </div>
 
-  <!-- MAIN CTA -->
-  <div class="card cta-card" style="position:relative;">
-    <div class="pulse"></div>
+  <!-- ── ГЛАВНАЯ КНОПКА ── -->
+  <div class="card cta-card" style="overflow:visible;">
+    <div class="pulse-ring"></div>
     <a class="cta-btn" href="https://t.me/OlgaTurreva" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
       Написать в Telegram
     </a>
   </div>
 
-  <!-- SOCIALS -->
+  <!-- ── СОЦИАЛЬНЫЕ СЕТИ ── -->
   <div class="card social-card">
     <p class="social-title">Социальные сети</p>
     <div class="social-grid">
 
-      <a class="social-btn" href="https://t.me/OlgaTurreva" target="_blank" rel="noopener">
-        <div class="social-icon icon-tg">
+      <a class="social-btn tg" href="https://t.me/OlgaTurreva" target="_blank" rel="noopener">
+        <div class="s-icon i-tg">
           <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
         </div>
-        <span class="social-name">Telegram</span>
+        <span class="s-name">Telegram</span>
       </a>
 
-      <a class="social-btn" href="https://t.me/sekretyZE" target="_blank" rel="noopener">
-        <div class="social-icon icon-tg-ch">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+      <a class="social-btn tgch" href="https://t.me/sekretyZE" target="_blank" rel="noopener">
+        <div class="s-icon i-tgch">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4zm0 7h10v2H4zm0 7h16v2H4z"/></svg>
         </div>
-        <span class="social-name">Канал TG</span>
+        <span class="s-name">Канал</span>
       </a>
 
-      <a class="social-btn" href="https://wa.me/420737350155" target="_blank" rel="noopener">
-        <div class="social-icon icon-wa">
+      <a class="social-btn wa" href="https://wa.me/420737350155" target="_blank" rel="noopener">
+        <div class="s-icon i-wa">
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         </div>
-        <span class="social-name">WhatsApp</span>
+        <span class="s-name">WhatsApp</span>
       </a>
 
-      <a class="social-btn" href="https://www.instagram.com/psycholog_olgatureva/" target="_blank" rel="noopener">
-        <div class="social-icon icon-ig">
+      <a class="social-btn ig" href="https://www.instagram.com/psycholog_olgatureva/" target="_blank" rel="noopener">
+        <div class="s-icon i-ig">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         </div>
-        <span class="social-name">Instagram</span>
+        <span class="s-name">Instagram</span>
       </a>
 
-      <a class="social-btn" href="https://vk.com/olgahappytureva" target="_blank" rel="noopener">
-        <div class="social-icon icon-vk">
+      <a class="social-btn vk" href="https://vk.com/olgahappytureva" target="_blank" rel="noopener">
+        <div class="s-icon i-vk">
           <svg viewBox="0 0 24 24"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.12-5.335-3.202C5.01 11.4 4.28 9.407 4.28 8.983c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.864 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V10.17c-.068-1.186-.695-1.287-.695-1.71 0-.203.169-.407.44-.407h2.743c.372 0 .508.203.508.643v3.473c0 .372.169.508.271.508.22 0 .407-.136.813-.542 1.27-1.422 2.168-3.608 2.168-3.608.119-.254.322-.491.762-.491h1.744c.525 0 .643.271.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.2 1.253.745.847 1.32 1.558 1.473 2.05.17.491-.085.745-.576.745z"/></svg>
         </div>
-        <span class="social-name">ВКонтакте</span>
+        <span class="s-name">ВКонтакте</span>
       </a>
 
-      <a class="social-btn" href="https://www.youtube.com/@olgatureva_psycholog" target="_blank" rel="noopener">
-        <div class="social-icon icon-yt">
+      <a class="social-btn yt" href="https://www.youtube.com/@olgatureva_psycholog" target="_blank" rel="noopener">
+        <div class="s-icon i-yt">
           <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
         </div>
-        <span class="social-name">YouTube</span>
+        <span class="s-name">YouTube</span>
       </a>
 
-      <a class="social-btn" href="https://www.facebook.com/olgahelp/" target="_blank" rel="noopener">
-        <div class="social-icon icon-fb">
+      <a class="social-btn fb" href="https://www.facebook.com/olgahelp/" target="_blank" rel="noopener">
+        <div class="s-icon i-fb">
           <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
         </div>
-        <span class="social-name">Facebook</span>
+        <span class="s-name">Facebook</span>
       </a>
 
-      <a class="social-btn" href="https://max.ru/join/ZdegNl24mFrgBC2Hnwo1h7bqlRmMYSDJhqmrp5fYIC0" target="_blank" rel="noopener">
-        <div class="social-icon icon-max">
-          <svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 00-2 2v16a2 2 0 002 2h16a2 2 0 002-2V4a2 2 0 00-2-2zm-3.5 14L12 11.5 7.5 16 6 14.5l4.5-4.5L6 5.5 7.5 4 12 8.5 16.5 4 18 5.5l-4.5 4.5 4.5 4.5-1.5 1.5z"/></svg>
+      <a class="social-btn mx" href="https://max.ru/join/ZdegNl24mFrgBC2Hnwo1h7bqlRmMYSDJhqmrp5fYIC0" target="_blank" rel="noopener">
+        <div class="s-icon i-mx">
+          <svg viewBox="0 0 24 24"><path d="M4 5l8 8 8-8 1.5 1.5L13.5 15h-3L2.5 6.5zm0 14h16v-2H4z"/></svg>
         </div>
-        <span class="social-name">MAX</span>
+        <span class="s-name">MAX</span>
       </a>
 
-      <a class="social-btn" href="http://turevaolga.space" target="_blank" rel="noopener">
-        <div class="social-icon icon-web">
+      <a class="social-btn web" href="http://turevaolga.space" target="_blank" rel="noopener">
+        <div class="s-icon i-web">
           <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
         </div>
-        <span class="social-name">Сайт</span>
+        <span class="s-name">Сайт</span>
       </a>
 
-      <a class="social-btn" href="mailto:turevaolga47@gmail.com">
-        <div class="social-icon icon-email">
+      <a class="social-btn em" href="mailto:turevaolga47@gmail.com">
+        <div class="s-icon i-em">
           <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </div>
-        <span class="social-name">Email</span>
+        <span class="s-name">Email</span>
       </a>
 
     </div>
   </div>
 
-  <!-- ABOUT -->
+  <!-- ── О МНЕ ── -->
   <div class="card about-card">
-    <p class="about-title">Обо мне</p>
+    <p class="section-ttl ttl-gold">Обо мне</p>
     <div class="about-text">
       <p>Кризисный психолог, соматолог и физиотерапевт. <strong>34 года практики.</strong> Работала 15 лет в Праге. Сейчас — онлайн из Германии и очно на ретритах.</p>
       <p>Ко мне приходят тогда, когда больше никто не помог: перед операциями, в разводах, после потерь.</p>
-      <p>Работаю через тело: тазовые кости, позвоночник, меридианы, авторские телесные практики. Тело + психика + причина — результат закрепляется навсегда.</p>
+      <p>Работаю через тело: тазовые кости, позвоночник, меридианы, авторские телесные практики.</p>
     </div>
     <div class="stats-row">
-      <div class="stat-item">
-        <span class="stat-num">34</span>
-        <span class="stat-label">года практики</span>
+      <div class="stat">
+        <span class="stat-n">34</span>
+        <span class="stat-l">года практики</span>
       </div>
-      <div class="stat-item">
-        <span class="stat-num">15</span>
-        <span class="stat-label">лет в Праге</span>
+      <div class="stat">
+        <span class="stat-n">15</span>
+        <span class="stat-l">лет в Праге</span>
       </div>
-      <div class="stat-item">
-        <span class="stat-num">8</span>
-        <span class="stat-label">языков знает дочь</span>
+      <div class="stat">
+        <span class="stat-n">8</span>
+        <span class="stat-l">языков знает дочь</span>
       </div>
     </div>
   </div>
 
-  <!-- SERVICES -->
+  <!-- ── УСЛУГИ ── -->
   <div class="card services-card">
-    <p class="services-title">Направления работы</p>
+    <p class="section-ttl ttl-purple">Направления работы</p>
     <div class="service-list">
-
       <div class="service-item">
-        <div class="service-dot" style="background: #a855f7;"></div>
-        <div>
-          <p class="service-text">Кризисная психология</p>
-          <p class="service-sub">Развод, потери, выгорание, экзистенциальные кризисы</p>
-        </div>
+        <div class="s-dot" style="background:#a855f7;box-shadow:0 0 8px rgba(168,85,247,0.6);"></div>
+        <div><p class="s-text">Кризисная психология</p><p class="s-sub">Развод, потери, выгорание, экзистенциальные кризисы</p></div>
       </div>
-
       <div class="service-item">
-        <div class="service-dot" style="background: #14b8a6;"></div>
-        <div>
-          <p class="service-text">Работа с телом (соматология)</p>
-          <p class="service-sub">Тазовые кости, позвоночник, меридианы, психосоматика</p>
-        </div>
+        <div class="s-dot" style="background:#14b8a6;box-shadow:0 0 8px rgba(20,184,166,0.6);animation-delay:.5s"></div>
+        <div><p class="s-text">Работа с телом (соматология)</p><p class="s-sub">Тазовые кости, позвоночник, меридианы, психосоматика</p></div>
       </div>
-
       <div class="service-item">
-        <div class="service-dot" style="background: #f59e0b;"></div>
-        <div>
-          <p class="service-text">Телесная регрессология</p>
-          <p class="service-sub">Авторский метод — физиология + психология в одном</p>
-        </div>
+        <div class="s-dot" style="background:#f59e0b;box-shadow:0 0 8px rgba(245,158,11,0.6);animation-delay:1s"></div>
+        <div><p class="s-text">Телесная регрессология</p><p class="s-sub">Авторский метод — физиология + психология</p></div>
       </div>
-
       <div class="service-item">
-        <div class="service-dot" style="background: #ec4899;"></div>
-        <div>
-          <p class="service-text">Марафон «Секреты женской энергии»</p>
-          <p class="service-sub">ТЭС, открытие тела, внутренний ресурс</p>
-        </div>
+        <div class="s-dot" style="background:#ec4899;box-shadow:0 0 8px rgba(236,72,153,0.6);animation-delay:1.5s"></div>
+        <div><p class="s-text">Марафон «Секреты женской энергии»</p><p class="s-sub">ТЭС, открытие тела, внутренний ресурс</p></div>
       </div>
-
       <div class="service-item">
-        <div class="service-dot" style="background: #0ea5e9;"></div>
-        <div>
-          <p class="service-text">Онлайн консультации</p>
-          <p class="service-sub">Индивидуальная работа из любой точки мира</p>
-        </div>
+        <div class="s-dot" style="background:#38bdf8;box-shadow:0 0 8px rgba(56,189,248,0.6);animation-delay:2s"></div>
+        <div><p class="s-text">Онлайн консультации</p><p class="s-sub">Индивидуальная работа из любой точки мира</p></div>
       </div>
-
     </div>
   </div>
 
-  <!-- CONTACTS -->
-  <div class="card info-card">
+  <!-- ── КОНТАКТЫ ── -->
+  <div class="card contacts-card">
 
-    <a class="info-row" href="https://t.me/OlgaTurreva" target="_blank" rel="noopener">
-      <div class="info-icon" style="background: linear-gradient(135deg,#0088cc,#29b6f6);">
+    <a class="contact-row" href="https://t.me/OlgaTurreva" target="_blank" rel="noopener">
+      <div class="c-icon" style="background:linear-gradient(135deg,#0088cc,#29b6f6);box-shadow:0 3px 12px rgba(0,136,204,0.45);">
         <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
       </div>
-      <div class="info-text">
-        <p class="info-label">Telegram (личный)</p>
-        <p class="info-value">@OlgaTurreva</p>
-      </div>
-      <span class="info-arrow">›</span>
+      <div class="c-text"><p class="c-label">Telegram (личный)</p><p class="c-val">@OlgaTurreva</p></div>
+      <span class="c-arr">›</span>
     </a>
 
-    <a class="info-row" href="https://t.me/sekretyZE" target="_blank" rel="noopener">
-      <div class="info-icon" style="background: linear-gradient(135deg,#5b21b6,#7c3aed);">
-        <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+    <a class="contact-row" href="https://t.me/sekretyZE" target="_blank" rel="noopener">
+      <div class="c-icon" style="background:linear-gradient(135deg,#5b21b6,#8b5cf6);box-shadow:0 3px 12px rgba(91,33,182,0.45);">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4zm0 7h10v2H4zm0 7h16v2H4z"/></svg>
       </div>
-      <div class="info-text">
-        <p class="info-label">Telegram канал</p>
-        <p class="info-value">@sekretyZE</p>
-      </div>
-      <span class="info-arrow">›</span>
+      <div class="c-text"><p class="c-label">Telegram канал</p><p class="c-val">@sekretyZE</p></div>
+      <span class="c-arr">›</span>
     </a>
 
-    <a class="info-row" href="https://wa.me/420737350155" target="_blank" rel="noopener">
-      <div class="info-icon" style="background: linear-gradient(135deg,#128c3e,#25d366);">
+    <a class="contact-row" href="https://wa.me/420737350155" target="_blank" rel="noopener">
+      <div class="c-icon" style="background:linear-gradient(135deg,#128c3e,#25d366);box-shadow:0 3px 12px rgba(37,211,102,0.4);">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       </div>
-      <div class="info-text">
-        <p class="info-label">WhatsApp</p>
-        <p class="info-value">+420 737 350 155</p>
-      </div>
-      <span class="info-arrow">›</span>
+      <div class="c-text"><p class="c-label">WhatsApp</p><p class="c-val">+420 737 350 155</p></div>
+      <span class="c-arr">›</span>
     </a>
 
-    <a class="info-row" href="http://turevaolga.space" target="_blank" rel="noopener">
-      <div class="info-icon" style="background: linear-gradient(135deg,#0891b2,#06b6d4);">
+    <a class="contact-row" href="http://turevaolga.space" target="_blank" rel="noopener">
+      <div class="c-icon" style="background:linear-gradient(135deg,#0e7490,#06b6d4);box-shadow:0 3px 12px rgba(6,182,212,0.4);">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
       </div>
-      <div class="info-text">
-        <p class="info-label">Сайт</p>
-        <p class="info-value">turevaolga.space</p>
-      </div>
-      <span class="info-arrow">›</span>
+      <div class="c-text"><p class="c-label">Сайт</p><p class="c-val">turevaolga.space</p></div>
+      <span class="c-arr">›</span>
     </a>
 
-    <a class="info-row" href="mailto:turevaolga47@gmail.com">
-      <div class="info-icon" style="background: linear-gradient(135deg,#ea580c,#fb923c);">
+    <a class="contact-row" href="mailto:turevaolga47@gmail.com">
+      <div class="c-icon" style="background:linear-gradient(135deg,#c2410c,#fb923c);box-shadow:0 3px 12px rgba(234,88,12,0.4);">
         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
       </div>
-      <div class="info-text">
-        <p class="info-label">Email</p>
-        <p class="info-value">turevaolga47@gmail.com</p>
-      </div>
-      <span class="info-arrow">›</span>
+      <div class="c-text"><p class="c-label">Email</p><p class="c-val">turevaolga47@gmail.com</p></div>
+      <span class="c-arr">›</span>
     </a>
 
   </div>
 
-  <!-- BLACK RETRIT PROMO -->
+  <!-- ── ЧЁРНЫЙ РЕТРИТ ── -->
   <div class="card retrit-card">
     <p class="retrit-label">🖤 Авторский проект</p>
     <h2 class="retrit-title">Чёрный Ретрит</h2>
@@ -885,7 +991,7 @@
       <span class="retrit-fact">от 200 000 ₽</span>
     </div>
     <a class="retrit-btn" href="https://retrit.turevaolga.space" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
       Узнать подробнее
     </a>
   </div>
@@ -895,6 +1001,198 @@
   </div>
 
 </div>
+
+<script>
+/* ═══════════════════════════════════
+   CANVAS — STARS + SHOOTING STARS + PARTICLES
+═══════════════════════════════════ */
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx    = canvas.getContext('2d');
+
+  let W, H;
+  let stars   = [];
+  let shooters = [];
+  let particles = [];
+  let raf;
+
+  const STAR_COUNT     = 200;
+  const PARTICLE_COUNT = 18;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  /* Stars */
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < STAR_COUNT; i++) {
+      const tint = Math.random();
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: rand(0.25, 1.6),
+        speed: rand(0.05, 0.3),
+        twinkle: Math.random() * Math.PI * 2,
+        tSpeed: rand(0.006, 0.022),
+        color: tint < 0.3
+          ? [240, 200, 255] // lavender
+          : tint < 0.55
+          ? [200, 180, 255] // blue-white
+          : tint < 0.75
+          ? [255, 220, 130] // warm gold
+          : [255, 255, 255],
+      });
+    }
+  }
+
+  /* Floating glowing particles */
+  function initParticles() {
+    particles = [];
+    const colors = [
+      [139, 92, 246],  // purple
+      [236, 72, 153],  // pink
+      [20, 184, 166],  // teal
+      [245, 158, 11],  // gold
+    ];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const c = colors[Math.floor(Math.random() * colors.length)];
+      particles.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: rand(-0.18, 0.18),
+        vy: rand(-0.25, -0.05),
+        r: rand(1.5, 4.5),
+        color: c,
+        alpha: rand(0.15, 0.55),
+        life: Math.random(),
+        lifeSpeed: rand(0.002, 0.006),
+      });
+    }
+  }
+
+  /* Spawn shooting star */
+  function spawnShooter() {
+    shooters.push({
+      x: rand(0, W * 0.75),
+      y: rand(0, H * 0.45),
+      len: rand(90, 220),
+      spd: rand(7, 16),
+      angle: Math.PI / 5 + rand(-0.15, 0.25),
+      life: 1,
+      decay: rand(0.018, 0.032),
+    });
+    setTimeout(spawnShooter, rand(2800, 7500));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    /* Background gradient */
+    const grd = ctx.createLinearGradient(0, 0, W * 0.6, H);
+    grd.addColorStop(0, '#0d0120');
+    grd.addColorStop(0.4, '#120230');
+    grd.addColorStop(0.75, '#0c1535');
+    grd.addColorStop(1, '#080d1e');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Stars */
+    for (const s of stars) {
+      s.twinkle += s.tSpeed;
+      const alpha = 0.3 + 0.7 * ((Math.sin(s.twinkle) + 1) / 2);
+      s.y += s.speed * 0.25;
+      s.x += Math.sin(s.twinkle * 0.35) * 0.06;
+      if (s.y > H + 2) { s.y = -2; s.x = Math.random() * W; }
+      if (s.x > W + 2) s.x = 0;
+      if (s.x < -2)    s.x = W;
+
+      const [r, g, b] = s.color;
+      const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 4);
+      glow.addColorStop(0, `rgba(${r},${g},${b},${alpha})`);
+      glow.addColorStop(1, `rgba(${r},${g},${b},0)`);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r * 4, 0, Math.PI * 2);
+      ctx.fillStyle = glow;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${Math.min(1, alpha + 0.3)})`;
+      ctx.fill();
+    }
+
+    /* Floating particles */
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life += p.lifeSpeed;
+      const a = p.alpha * Math.abs(Math.sin(p.life));
+
+      if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+      if (p.x < -10) p.x = W + 10;
+      if (p.x > W + 10) p.x = -10;
+
+      const [r, g, b] = p.color;
+      const pg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+      pg.addColorStop(0, `rgba(${r},${g},${b},${a})`);
+      pg.addColorStop(1, `rgba(${r},${g},${b},0)`);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+      ctx.fillStyle = pg;
+      ctx.fill();
+    }
+
+    /* Shooting stars */
+    for (let i = shooters.length - 1; i >= 0; i--) {
+      const s = shooters[i];
+      s.x += Math.cos(s.angle) * s.spd;
+      s.y += Math.sin(s.angle) * s.spd;
+      s.life -= s.decay;
+      if (s.life <= 0) { shooters.splice(i, 1); continue; }
+
+      const tx = s.x - Math.cos(s.angle) * s.len;
+      const ty = s.y - Math.sin(s.angle) * s.len;
+      const tail = ctx.createLinearGradient(s.x, s.y, tx, ty);
+      tail.addColorStop(0,   `rgba(255,235,140,${s.life * 0.95})`);
+      tail.addColorStop(0.3, `rgba(200,160,255,${s.life * 0.5})`);
+      tail.addColorStop(1,   'rgba(255,235,140,0)');
+      ctx.beginPath();
+      ctx.moveTo(s.x, s.y);
+      ctx.lineTo(tx, ty);
+      ctx.strokeStyle = tail;
+      ctx.lineWidth = 1.8;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      /* Head sparkle */
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,245,200,${s.life})`;
+      ctx.fill();
+    }
+
+    raf = requestAnimationFrame(draw);
+  }
+
+  resize();
+  initStars();
+  initParticles();
+  spawnShooter();
+  draw();
+
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(raf);
+    resize();
+    initStars();
+    initParticles();
+    draw();
+  });
+})();
+</script>
 
 </body>
 </html>
